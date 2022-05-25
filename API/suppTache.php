@@ -21,7 +21,7 @@ if (!empty($_GET["idTache"]))
     $requete->execute();
 
     $retour["success"] = true;
-    $retour["message"] = "la tache a bien était supprimé";
+    $retour["message"] = "la tache a bien été supprimé";
     
 
 } else {

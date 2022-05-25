@@ -14,7 +14,7 @@ catch(Exception $e){
     $retour["message"] = "Connexion impossible";
 }
 
-if (!empty($_GET["libelle"]) && !empty($_GET["typetache"]))
+if (!empty($_GET["libelle"]) && !empty($_GET["typetache"]) && !empty($_GET["etat"]))
 {
     $requete = $pdo->prepare("INSERT INTO `tache`(`libelle`, `etat`, `idTypeTache`) VALUES  (:libelle, :etat , :typetache )");
     $requete->bindParam(':libelle',$_GET["libelle"],PDO::PARAM_STR);

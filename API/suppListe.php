@@ -14,19 +14,19 @@ catch(Exception $e){
     $retour["message"] = "Connexion impossible";
 }
 
-if (!empty($_GET["nomListe"]))
+if (!empty($_GET["idListe"]))
 {
-    $requete = $pdo->prepare("INSERT INTO `liste`( `nomListe`) VALUES  (:nomListe )");
-    $requete->bindParam(':nomListe',$_GET["nomListe"],PDO::PARAM_STR);
-     $requete->execute();
+    $requete = $pdo->prepare("DELETE FROM `liste` WHERE idListe = ?");
+    $requete->bindvalue(1,$_GET["idListe"]);
+    $requete->execute();
 
     $retour["success"] = true;
-    $retour["message"] = "la liste a été ajouté";
-    $retour["results"] = array();
+    $retour["message"] = "la liste a bien été supprimé";
+    
 
 } else {
     $retour["success"] = false;
-    $retour["message"] = "information de la liste insuffisante";
+    $retour["message"] = "Problème de supression de la liste";
 }
 
 echo json_encode($retour);
