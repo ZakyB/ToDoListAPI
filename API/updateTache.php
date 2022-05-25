@@ -14,16 +14,38 @@ catch(Exception $e){
     $retour["message"] = "Connexion impossible";
 }
 
-if (!empty($_GET["idTache"]))
+if (!empty($_GET["idTache"]) && !empty($_GET["type"]))
 {
-    $requete = $pdo->prepare("Update Tache Set '");
-    $requete->execute();
+    $type = $_GET["type"];
+    if ($type=="libelle"){
+        $requete = $pdo->prepare("UPDATE `tache` SET `libelle`= :libelle WHERE idTache = :idTache");
+        $requete->bindParam(':libelle',$_GET["libelle"],PDO::PARAM_STR);
+        $requete->bindParam(':idTache',$_GET["idTache"],PDO::PARAM_INT);
 
-    $retour["success"] = true;
-    $retour["message"] = "la tache a bien été supprimé";
+        $requete->execute();
+        $retour["success"] = true;
+        $retour["message"] = "la tache (libelle) a bien été mise à jour ";
+    }
+    if($type=="etat"){
+        $requete = $pdo->prepare("UPDATE `tache` SET `etat`= :etat WHERE idTache = :idTache");
+        $requete->bindParam(':etat',$_GET["etat"],PDO::PARAM_STR);
+        $requete->bindParam(':idTache',$_GET["idTache"],PDO::PARAM_INT);
+
+        $requete->execute();
+        $retour["success"] = true;
+        $retour["message"] = "la tache (etat) a bien été mise à jour";
+    }else{
+        $requete = $pdo->prepare("UPDATE `tache` SET `idTypeTache`= :idTypeTache WHERE idTache = :idTache");
+        $requete->bindParam(':libelle',$_GET["idTypeTache"],PDO::PARAM_STR);
+        $requete->bindParam(':idTache',$_GET["idTache"],PDO::PARAM_INT);
+        
+        $requete->execute();
+        $retour["success"] = true;
+        $retour["message"] = "la tache (TypeTache) a bien été mise à jour";
+    }
     
 
-} else {
+    } else {
     $retour["success"] = false;
     $retour["message"] = "Problème de supression de la tâche";
 }
