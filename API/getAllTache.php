@@ -14,7 +14,7 @@ catch(Exception $e){
     $retour["message"] = "Connexion impossible";
 }
 
-$requete = $pdo->prepare("Select * from tache");
+$requete = $pdo->prepare("SELECT tache.id , tache.libelle , etat.libelle as etat , liste.libelle as liste , typetache.libelle as typetache , tache.idEtat , tache.idListe, tache.idTypeTache FROM tache , etat , liste , typetache WHERE tache.idEtat = etat.idEtat AND tache.idListe = liste.idListe AND tache.idTypeTache= typetache.idTypeTache");
 $requete->execute();
 
 
