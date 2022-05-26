@@ -7,8 +7,6 @@ try{
     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
-    $retour["success"] = true;
-    $retour["message"] = "Connexion ok";
 }
 catch(Exception $e){
     $retour["success"] = false;
@@ -18,9 +16,8 @@ catch(Exception $e){
 $requete = $pdo->prepare("Select * from liste");
 $requete->execute();
 
-$retour["success"] = true;
-$retour["message"] = "voici toutes les listes";
-$retour["results"]{"taches"} = $requete->fetchall(PDO:: FETCH_ASSOC);
+
+$retour = $requete->fetchall(PDO:: FETCH_ASSOC);
 
 echo json_encode($retour);
 exit();

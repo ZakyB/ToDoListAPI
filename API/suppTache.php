@@ -22,7 +22,7 @@ if (!empty($_GET["idTache"]))
 
     $retour["success"] = true;
     $retour["message"] = "la tache a bien été supprimé";
-    
+
 
 } else {
     $retour["success"] = false;
